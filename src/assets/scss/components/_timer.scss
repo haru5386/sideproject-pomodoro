@@ -1,0 +1,60 @@
+.timer {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.tomato-time {
+  position: relative;
+}
+.tomato {
+  width: 400px;
+  height: 380px;
+  background-color: $primary-orange;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ::before {
+    content: '';
+    display: block;
+    width: 35px;
+    height: 80px;
+    background-color: $primary-green;
+    z-index: -10;
+    border-radius: 4px;
+    transform: rotate(20deg);
+    position: relative;
+    top: -200px;
+    // left: 180px;
+  }
+}
+.time {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  font-size: 130px;
+  color: $white;
+  font-weight: 900;
+}
+
+.play-btn {
+  margin: 20px 70px;
+}
+.pause path {
+    fill: $gray-300;
+  }
+.play path {
+    fill: $black;
+  }
+
+.task {
+  text-align: center;
+  p {
+    font-size: 1.2rem;
+  }
+}

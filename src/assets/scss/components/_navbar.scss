@@ -1,0 +1,11 @@
+.nav {
+  flex-basis: 50px;
+  .li {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

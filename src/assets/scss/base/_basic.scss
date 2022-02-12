@@ -3,8 +3,10 @@ body {
   margin: 0;
   padding: 0;
   font-family: Avenir, Helvetica, Arial, sans-serif;
-
+  height: 100%;
+  overflow: hidden;
 }
+
 * {
   box-sizing: border-box;
   // border: 1px solid #000;
@@ -56,12 +58,21 @@ button[disabled] {
 }
 input {
   padding: 0;
+     box-shadow:none; 
+  outline: none;
+  resize: none; 
+  border: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 input:required {
   box-shadow: none;
 }
 input:invalid {
   box-shadow: none;
+}
+textarea {
+  resize: none; 
 }
 
 html {
@@ -155,18 +166,24 @@ h2 {
 }
 
 h3 {
-  font-size: 2rem;
+  font-size: 1.5rem;
   letter-spacing: 2px;
+  font-weight: normal;
 }
 
 h4 {
   font-size: 1.4rem;
   letter-spacing: 2px;
+  font-weight: normal;
+}
+
+h5 {
+  font-size: 1.2rem;
+  font-weight: normal;
 }
 
 p {
   letter-spacing: 1px;
-
 }
 
 .my-auto {

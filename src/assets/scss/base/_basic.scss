@@ -190,3 +190,17 @@ p {
   margin: 0 auto;
 }
 
+.btn {
+  color: $white;
+  padding: 10px;
+  background: $primary-orange;
+  border-radius: 6px;
+  width: 100px;
+  font-size: 1rem;
+  line-height: 1rem;
+  display: inline-block;
+}
+
+.btn:hover {
+  background: $primary-dark-orange;
+  }

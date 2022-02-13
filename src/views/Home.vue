@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <Timer />
-    <Navbar />
+    <Navbar @mode-click="modeChange"/>
     <template v-if="mode === 'addTask'">
-      <AddTask />
+      <AddTask @mode-click="modeChange" />
     </template>
     <template v-else-if="mode === 'list'" >
-      <List :list="list" />
+      <List :list="list" @mode-click="modeChange"/>
     </template>
     <div v-else></div>
   </div>
@@ -55,5 +55,10 @@ export default {
       ],
     };
   },
+methods: {
+  modeChange(mode){
+    this.mode = mode
+  }
+}
 };
 </script>

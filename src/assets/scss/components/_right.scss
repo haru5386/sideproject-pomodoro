@@ -1,7 +1,8 @@
 .right-panel {
   flex-basis: 350px;
   background: $dark-blue;
-  padding-top: 20px;
+  padding-top: 40px;
+  position: relative;
 }
 .title {
   display: flex;
@@ -88,4 +89,34 @@ input[type=checkbox]:checked {
       font-size: 12px;
       color: $white;
     }
+}
+.cancel {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  &::after {
+    position: absolute;
+    top: 0px;
+    right:10px;
+    content:'';
+    display: block;
+    width: 1px;
+    height: 20px;
+    background: $gray-200;
+    transform: rotate(-45deg);
+  }
+  &::before {
+        position: absolute;
+    top: 0px;
+    right:10px;
+    content:'';
+    display: block;
+    width: 1px;
+    height: 20px;
+    background: $gray-200;
+    transform: rotate(45deg);
+  }
 }

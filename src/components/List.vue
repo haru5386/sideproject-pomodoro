@@ -1,5 +1,6 @@
 <template>
   <div class="task-list right-panel">
+    <div class="cancel" @click="changeMode('none')"></div>
     <div class="title">
       <h3>TASK LIST</h3>
       <div class="line"></div>
@@ -62,6 +63,11 @@ export default {
   props: {
     list: {
       type: Array,
+    },
+  },
+  methods: {
+    changeMode(mode) {
+      this.$emit("mode-click", mode);
     },
   },
 };

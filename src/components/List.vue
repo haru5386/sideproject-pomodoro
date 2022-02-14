@@ -54,19 +54,6 @@
           <div class="pr-3">::</div>
           <input v-model="todo.completed" type="checkbox" class="toggle" />
           <label for="">{{ todo.taskName }}</label>
-          <div class="start">
-            <div class="edit-task">
-              <i class="fa-regular fa-pen-to-square"></i>
-            </div>
-
-            <div class="delete-task">
-              <i class="fa-regular fa-trash-can"></i>
-            </div>
-
-            <div class="play-task">
-              <i class="fa-regular fa-circle-play"></i>
-            </div>
-          </div>
         </li>
       </ul>
     </div>
@@ -91,7 +78,7 @@ export default {
       this.$emit("mode-click", mode);
     },
     deleteTask(id) {
-      this.$emit("after-delete-task", id);
+      this.list = this.list.filter(task=> task.id !== id )
     },
     editTask(todo) {
       this.currentTask = { ...todo };

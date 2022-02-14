@@ -6,7 +6,7 @@
       <AddTask @mode-click="modeChange" @after-add-task="afterAddTask" />
     </template>
     <template v-else-if="mode === 'list'">
-      <List :initial-list="list" @mode-click="modeChange" @after-delete-task="afterDeleteTask"/>
+      <List :initial-list="list" @mode-click="modeChange" />
     </template>
     <div v-else></div>
   </div>
@@ -62,23 +62,6 @@ export default {
       console.log("payload", payload);
       this.list.push(payload);
     },
-    afterDeleteTask(taskId) {
-      console.log(taskId)
-      this.list = this.list.filter(task=> task.id !== taskId )
-    },
-    // afterDoneEdit(currentTask){
-    //   console.log('currentTask',currentTask)
-    //     this.list = this.list.map((todo)=> {
-    //     if(todo.id === currentTask.id) {
-    //       console.log(todo)
-    //       return {
-    //         ...this.currentTask
-    //       }
-    //     }else {
-    //       return todo
-    //     }
-    //   })
-    // }
   },
 };
 </script>

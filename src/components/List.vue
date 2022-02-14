@@ -11,7 +11,7 @@
         <li v-for="todo in list" :key="todo.id">
           <div class="pr-3">::</div>
           <input v-model="todo.completed" type="checkbox" class="toggle" />
-          <label for="">{{ todo.ListName }}</label>
+          <label for="">{{ todo.taskName }}</label>
           <div class="start">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@
         <li v-for="todo in list" :key="todo.id">
           <div class="pr-3">::</div>
           <input v-model="todo.completed" type="checkbox" class="toggle" />
-          <label for="">{{ todo.ListName }}</label>
+          <label for="">{{ todo.taskName }}</label>
           <div class="start">
             <svg
               xmlns="http://www.w3.org/2000/svg"

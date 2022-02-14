@@ -7,24 +7,43 @@
     </div>
     <form class="form" @submit.stop.prevent="handleSubmit">
       <label for="task-name"><h5>TASK NAME</h5></label>
-      <input type="text" id="task-name" name="task-name" />
+      <input type="text" id="task-name" name="task-name" v-model="taskName" />
       <h5>ESTIMATED TOMATO</h5>
       <h5>DETAIL</h5>
-      <input type="date" />
+      <input type="date" v-model="date" />
       <textarea
         name="description"
         id="description"
         placeholder="write something about it…"
+        v-model="description"
       ></textarea>
       <button class="btn mt-4" type="submit">SAVE</button>
     </form>
   </div>
 </template>
 <script>
+import { v4 as uuidv4 } from "uuid";
 export default {
+  data() {
+    return {
+      taskName: "",
+      description: "",
+      date: "",
+    };
+  },
   methods: {
-    handleSubmit(e) {
-      console.log(e);
+    handleSubmit() {
+      console.log("submit");
+      this.$emit("after-add-task", {
+        id: uuidv4(),
+        taskName: this.taskName,
+        description: this.description,
+        date: this.date,
+        completed: false,
+      });
+      this.taskName = "";
+      this.description = "";
+      this.date = "";
     },
     changeMode(mode) {
       this.$emit("mode-click", mode);

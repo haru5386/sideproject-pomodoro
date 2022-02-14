@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <Timer />
-    <Navbar @mode-click="modeChange"/>
+    <Navbar @mode-click="modeChange" />
     <template v-if="mode === 'addTask'">
-      <AddTask @mode-click="modeChange" />
+      <AddTask @mode-click="modeChange" @after-add-task="afterAddTask" />
     </template>
-    <template v-else-if="mode === 'list'" >
-      <List :list="list" @mode-click="modeChange"/>
+    <template v-else-if="mode === 'list'">
+      <List :list="list" @mode-click="modeChange" />
     </template>
     <div v-else></div>
   </div>
@@ -20,7 +20,6 @@ import Timer from "@/components/Timer.vue";
 import Navbar from "@/components/Navbar.vue";
 import AddTask from "@/components/AddTask.vue";
 import List from "@/components/List.vue";
-
 
 export default {
   name: "Home",
@@ -36,29 +35,33 @@ export default {
       list: [
         {
           id: 1,
-          ListName: "First task",
-          Description: "",
+          taskName: "First task",
+          description: "",
           completed: false,
         },
         {
           id: 2,
-          ListName: "Second task",
-          Description: "",
+          taskName: "Second task",
+          description: "",
           completed: false,
         },
         {
           id: 3,
-          ListName: "Third task",
-          Description: "",
+          taskName: "Third task",
+          description: "",
           completed: false,
         },
       ],
     };
   },
-methods: {
-  modeChange(mode){
-    this.mode = mode
-  }
-}
+  methods: {
+    modeChange(mode) {
+      this.mode = mode;
+    },
+    afterAddTask(payload) {
+      console.log("payload", payload);
+      this.list.push(payload);
+    },
+  },
 };
 </script>

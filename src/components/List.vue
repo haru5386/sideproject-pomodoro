@@ -13,20 +13,17 @@
           <input v-model="todo.completed" type="checkbox" class="toggle" />
           <label for="">{{ todo.taskName }}</label>
           <div class="start">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M10 0C4.5 0 0 4.5 0 10C0 15.5 4.5 20 10 20C15.5 20 20 15.5 20 10C20 4.5 15.5 0 10 0ZM8.8 13.9L13.5 10.4C13.8 10.2 13.8 9.8 13.5 9.6L8.8 6.1C8.5 5.9 8 6.1 8 6.5V13.5C8 13.9 8.5 14.2 8.8 13.9ZM2 10C2 14.4 5.6 18 10 18C14.4 18 18 14.4 18 10C18 5.6 14.4 2 10 2C5.6 2 2 5.6 2 10Z"
-                fill="white"
-              />
-            </svg>
+            <div class="edit-task">
+              <i class="fa-regular fa-pen-to-square"></i>
+            </div>
+
+            <div class="delete-task" @click="deleteTask(todo.id)">
+              <i class="fa-regular fa-trash-can"></i>
+            </div>
+
+            <div class="play-task">
+              <i class="fa-regular fa-circle-play"></i>
+            </div>
           </div>
         </li>
       </ul>
@@ -37,20 +34,17 @@
           <input v-model="todo.completed" type="checkbox" class="toggle" />
           <label for="">{{ todo.taskName }}</label>
           <div class="start">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M10 0C4.5 0 0 4.5 0 10C0 15.5 4.5 20 10 20C15.5 20 20 15.5 20 10C20 4.5 15.5 0 10 0ZM8.8 13.9L13.5 10.4C13.8 10.2 13.8 9.8 13.5 9.6L8.8 6.1C8.5 5.9 8 6.1 8 6.5V13.5C8 13.9 8.5 14.2 8.8 13.9ZM2 10C2 14.4 5.6 18 10 18C14.4 18 18 14.4 18 10C18 5.6 14.4 2 10 2C5.6 2 2 5.6 2 10Z"
-                fill="white"
-              />
-            </svg>
+            <div class="edit-task">
+              <i class="fa-regular fa-pen-to-square"></i>
+            </div>
+
+            <div class="delete-task">
+              <i class="fa-regular fa-trash-can"></i>
+            </div>
+
+            <div class="play-task">
+              <i class="fa-regular fa-circle-play"></i>
+            </div>
           </div>
         </li>
       </ul>
@@ -69,6 +63,9 @@ export default {
     changeMode(mode) {
       this.$emit("mode-click", mode);
     },
+    deleteTask(id) {
+      this.$emit("after-delete-task", id)
+    }
   },
 };
 </script>

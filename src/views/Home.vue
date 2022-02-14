@@ -6,7 +6,7 @@
       <AddTask @mode-click="modeChange" @after-add-task="afterAddTask" />
     </template>
     <template v-else-if="mode === 'list'">
-      <List :list="list" @mode-click="modeChange" />
+      <List :list="list" @mode-click="modeChange" @after-delete-task="afterDeleteTask"/>
     </template>
     <div v-else></div>
   </div>
@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      mode: "addTask",
+      mode: "list",
       list: [
         {
           id: 1,
@@ -62,6 +62,10 @@ export default {
       console.log("payload", payload);
       this.list.push(payload);
     },
+    afterDeleteTask(taskId) {
+      console.log(taskId)
+      this.list = this.list.filter(task=> task.id !== taskId )
+    }
   },
 };
 </script>

@@ -17,7 +17,7 @@
         placeholder="write something about it…"
         v-model="description"
       ></textarea>
-      <button class="btn mt-4" type="submit">SAVE</button>
+      <button class="btn mt-4 primary" type="submit">SAVE</button>
     </form>
   </div>
 </template>

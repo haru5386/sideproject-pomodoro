@@ -50,6 +50,19 @@
 .todo-list {
   position: relative;
   display: block;
+  .view {
+    display: flex;
+  }
+  li.editing .view {
+    display: none;
+  }
+  li.editing .edit-mode {
+	display: block;
+  width: 100%;
+}
+  li .edit-mode {
+    display: none;
+  }
   .start {
     position: absolute;
     right: 10px;
@@ -70,7 +83,6 @@
     background: rgba(255,255,255,0.1);
     margin: 10px 0px;
     padding: 5px 10px;
-    height: 35px;
     border-radius: 5px;
     display: flex;
     align-items: center;

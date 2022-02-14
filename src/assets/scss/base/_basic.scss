@@ -191,9 +191,7 @@ p {
 }
 
 .btn {
-  color: $white;
   padding: 10px;
-  background: $primary-orange;
   border-radius: 6px;
   width: 100px;
   font-size: 1rem;
@@ -201,6 +199,20 @@ p {
   display: inline-block;
 }
 
-.btn:hover {
+.primary:hover {
   background: $primary-dark-orange;
+  }
+
+.primary {
+  background: $primary-orange;
+  color: $white;
+}
+
+.secondary {
+  background: $deep-blue;
+  color: $white;
+}
+
+.secondary:hover {
+  background: $dark-blue;
   }

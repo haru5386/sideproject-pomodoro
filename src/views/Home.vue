@@ -66,6 +66,15 @@ export default {
           }
       },
       deep: true
+    },
+    playingTask:{
+      handler(newValue){
+        if(newValue.completed){
+          this.playingTask = ""
+        }
+        
+      },
+      deep: true
     }
   },
   methods: {

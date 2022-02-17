@@ -54,6 +54,21 @@
 
 .task {
   text-align: center;
+  .finish{
+    width: 130px;
+    margin-top: 10px;
+    padding: 5px 0px;
+    color: $primary-orange;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: 1px solid $primary-orange;
+    border-radius: 4px;
+    background-color: #fff;
+    &:hover {
+      color: $primary-dark-orange;
+      background-color: $primary-light-orange;
+    }
+  }
   p {
     font-size: 1.2rem;
   }

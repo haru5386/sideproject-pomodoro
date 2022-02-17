@@ -26,7 +26,7 @@
                 <i class="fa-regular fa-trash-can"></i>
               </div>
 
-              <div class="play-task">
+              <div class="play-task" @click="playTask(todo.id)">
                 <i class="fa-regular fa-circle-play"></i>
               </div>
             </div>
@@ -73,33 +73,46 @@ export default {
       list: this.initialList,
     };
   },
+  watch: {
+    initialList: {
+      handler: function (newValue) {
+        this.list = newValue;
+      },
+      immediate: true,
+      deep: true,
+    },
+  },
   methods: {
     changeMode(mode) {
       this.$emit("mode-click", mode);
     },
     deleteTask(id) {
-      this.list = this.list.filter(task=> task.id !== id )
+      this.$emit("delete-task", id);
+    },
+    playTask(id){
+      this.$emit("play-task", id);
     },
     editTask(todo) {
       this.currentTask = { ...todo };
     },
     cancelEdit() {
-      this.currentTask = ""
+      this.currentTask = "";
     },
     doneEdit() {
-      console.log(this.currentTask.id)
-      this.list = this.list.map((todo)=> {
-      if(todo.id === this.currentTask.id) {
-        console.log(todo)
-        return {
-          ...this.currentTask
+      console.log(this.currentTask.id);
+      this.list = this.list.map((todo) => {
+        if (todo.id === this.currentTask.id) {
+          console.log(todo);
+          return {
+            ...this.currentTask,
+          };
+        } else {
+          return todo;
         }
-      }else {
-        return todo
-      }
-    })
-      this.currentTask = ""
-    }
+      });
+      this.$emit("done-edit",this.list)
+      this.currentTask = "";
+    },
   },
   computed: {
     finishedTask() {

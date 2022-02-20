@@ -8,10 +8,15 @@
 .tomato-time {
   position: relative;
 }
+.orange {
+  background-color: $primary-orange;
+}
+.green {
+  background-color: $primary-green;
+}
 .tomato {
   width: 400px;
   height: 380px;
-  background-color: $primary-orange;
   border-radius: 50%;
   position: relative;
   display: flex;
@@ -44,13 +49,14 @@
 
 .play-btn {
   margin: 20px 70px;
+  font-size: 30px;
+  cursor: pointer;
+  color: $dark-blue;
+  &:hover{
+  color: $deep-blue;
+  }
 }
-.pause path {
-    fill: $gray-300;
-  }
-.play path {
-    fill: $black;
-  }
+
 
 .task {
   text-align: center;

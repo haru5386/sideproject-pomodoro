@@ -2,43 +2,26 @@
   <div class="timer">
     <div class="tomato-time">
       <div class="time d-flex">
-        <div class="min">25</div>
+        <div class="minText">{{ remainingMin }}</div>
         <p>:</p>
-        <div class="sec">00</div>
+        <div class="secText">{{ remainingSeconds }}</div>
       </div>
-      <div class="tomato">
+      <div class="tomato" :class="[{ orange: orange }, { green: green }]">
         <p></p>
       </div>
     </div>
-
-    <div class="d-flex justify-content-center align-items-center">
-      <div class="play-btn play">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="29"
-          height="34"
-          viewBox="0 0 29 34"
-          fill="none"
-        >
-          <path
-            d="M0.5 2.96365V31.2182C0.5 33.3727 2.87273 34.6818 4.7 33.5091L26.9 19.3818C28.5909 18.3182 28.5909 15.8636 26.9 14.7727L4.7 0.672738C2.87273 -0.499989 0.5 0.809102 0.5 2.96365Z"
-          />
-        </svg>
+    <div
+      v-if="playingTask"
+      class="d-flex justify-content-center align-items-center"
+    >
+      <div v-if="!time" class="play-btn play" @click="setTime()">
+        <i class="fa-solid fa-play"></i>
       </div>
-      <div class="play-btn pause">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="30"
-          height="30"
-          viewBox="0 0 30 30"
-          fill="none"
-        >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M10 25.7143C10 28.0714 7.75 30 5 30C2.25 30 0 28.0714 0 25.7143V4.28571C0 1.92857 2.25 0 5 0C7.75 0 10 1.92857 10 4.28571V25.7143ZM20 25.7143V4.28571C20 1.92857 22.25 0 25 0C27.75 0 30 1.92857 30 4.28571V25.7143C30 28.0714 27.75 30 25 30C22.25 30 20 28.0714 20 25.7143Z"
-          />
-        </svg>
+      <div v-if="time" class="play-btn pause" @click="stopTime()">
+        <i class="fa-solid fa-pause"></i>
+      </div>
+      <div class="play-btn reset" @click="resetTime()">
+        <i class="fa-solid fa-clock-rotate-left"></i>
       </div>
     </div>
     <div v-if="playingTaskBar === 'playingTask'" class="task">
@@ -46,10 +29,10 @@
       <p class="task-description">{{ playingTask.description }}</p>
       <button class="finish" @click="taskFinish">Finish!</button>
     </div>
-    <div v-else-if="playingTaskBar === 'chooseTask'" class="task">
+    <div v-else-if="playingTaskBar === 'chooseTask'" class="task mt-4">
       <h3>Choose a task to play!</h3>
     </div>
-    <div v-else-if="playingTaskBar === 'noTask'" class="task">
+    <div v-else-if="playingTaskBar === 'noTask'" class="task mt-4">
       <h3>You don’t have any task now.</h3>
     </div>
   </div>
@@ -59,15 +42,24 @@
 export default {
   props: {
     playingTask: {
-      type: [String,Object],
+      type: [String, Object],
     },
     list: {
       type: Array,
     },
   },
+  data() {
+    return {
+      mode: "pomodoro",
+      remainingMin: 1,
+      remainingSec: 0,
+      time: null,
+      tempRemainingTime: null,
+    };
+  },
   computed: {
     playingTaskBar: function () {
-      let unfinished = this.list.filter(todo=> !todo.completed)
+      let unfinished = this.list.filter((todo) => !todo.completed);
       if (this.playingTask) {
         return "playingTask";
       } else if (!this.playingTask && unfinished.length === 0) {
@@ -76,11 +68,91 @@ export default {
         return "chooseTask";
       }
     },
+    duration: function () {
+      if (this.mode === "pomodoro") {
+        return 1;
+      } else if (this.mode === "break") {
+        return 1;
+      } else return 0;
+    },
+    remainingSeconds: function () {
+      if (this.remainingSec === 60) {
+        return "00";
+      } else if (this.remainingSec < 10) {
+        return "0" + this.remainingSec;
+      } else return this.remainingSec;
+    },
+    orange: function () {
+      if (this.mode === "pomodoro") {
+        return true;
+      } else return false;
+    },
+    green: function () {
+      if (this.mode === "break") {
+        return true;
+      } else return false;
+    },
   },
+  watch: {},
   methods: {
-    taskFinish(){
-      this.$emit('task-finish')
-    }
-  }
+    taskFinish() {
+      this.$emit("task-finish");
+      this.resetTime();
+    },
+    timer() {
+      let startTime = new Date().getTime();
+      this.time = setInterval(
+        function () {
+          let passTime = Math.floor((new Date().getTime() - startTime) / 1000);
+          if (this.tempRemainingTime) {
+            this.remainingMin =
+              this.tempRemainingTime.min - Math.floor(passTime / 60);
+            this.remainingSec = this.tempRemainingTime.sec - (passTime % 60);
+          } else {
+            this.remainingMin = this.duration - Math.ceil(passTime / 60);
+            this.remainingSec = 60 - (passTime % 60);
+          }
+          if (this.remainingSec === 1 && this.remainingMin === 0) {
+            this.onEnd();
+          }
+        }.bind(this),
+        200
+      );
+    },
+    setTime() {
+      this.timer();
+    },
+    stopTime() {
+      if (this.time) {
+        clearInterval(this.time);
+        this.time = null;
+        this.tempRemainingTime = {
+          min: this.remainingMin,
+          sec: this.remainingSec,
+        };
+      }
+    },
+    resetTime() {
+      this.stopTime();
+      this.mode = "pomodoro";
+      this.remainingMin = this.duration;
+      this.remainingSec = 0;
+      this.tempRemainingTime = null;
+    },
+    onEnd() {
+      clearInterval(this.time);
+      this.time = null;
+      switch (this.mode) {
+        case "pomodoro":
+          this.mode = "break";
+          break;
+        case "break":
+          this.mode = "pomodoro";
+          break;
+      }
+      this.remainingMin = this.duration;
+      this.remainingSec = 0;
+    },
+  },
 };
 </script>

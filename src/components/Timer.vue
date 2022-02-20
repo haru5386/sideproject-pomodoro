@@ -1,5 +1,6 @@
 <template>
   <div class="timer">
+    <audio ref="audio" :src="sound"></audio>
     <div class="tomato-time">
       <div class="time d-flex">
         <div class="minText">{{ remainingMin }}</div>
@@ -39,6 +40,7 @@
 </template>
 
 <script>
+import endMusic from '../assets/audio/endMusic.mp3'
 export default {
   props: {
     playingTask: {
@@ -55,6 +57,7 @@ export default {
       remainingSec: 0,
       time: null,
       tempRemainingTime: null,
+      sound: endMusic
     };
   },
   computed: {
@@ -140,6 +143,7 @@ export default {
       this.tempRemainingTime = null;
     },
     onEnd() {
+      this.$refs.audio.play()
       clearInterval(this.time);
       this.time = null;
       switch (this.mode) {

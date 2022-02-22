@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import endMusic from '../assets/audio/endMusic.mp3'
+import endMusic from "../assets/audio/endMusic.mp3";
 export default {
   props: {
     playingTask: {
@@ -57,7 +57,7 @@ export default {
       remainingSec: 0,
       time: null,
       tempRemainingTime: null,
-      sound: endMusic
+      sound: endMusic,
     };
   },
   computed: {
@@ -75,7 +75,7 @@ export default {
       if (this.mode === "pomodoro") {
         return 25;
       } else if (this.mode === "break") {
-        return 10;
+        return 5;
       } else return 0;
     },
     remainingSeconds: function () {
@@ -143,7 +143,7 @@ export default {
       this.tempRemainingTime = null;
     },
     onEnd() {
-      this.$refs.audio.play()
+      this.$refs.audio.play();
       clearInterval(this.time);
       this.time = null;
       switch (this.mode) {

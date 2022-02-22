@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       mode: "pomodoro",
-      remainingMin: 1,
+      remainingMin: 25,
       remainingSec: 0,
       time: null,
       tempRemainingTime: null,
@@ -73,9 +73,9 @@ export default {
     },
     duration: function () {
       if (this.mode === "pomodoro") {
-        return 1;
+        return 25;
       } else if (this.mode === "break") {
-        return 1;
+        return 10;
       } else return 0;
     },
     remainingSeconds: function () {

@@ -1,12 +1,23 @@
 <template>
   <div class="home">
-    <Timer @task-finish="afterTaskFinish" :playingTask="playingTask" :list="list"/>
+    <Timer
+      @task-finish="afterTaskFinish"
+      :playingTask="playingTask"
+      :list="list"
+    />
     <Navbar @mode-click="modeChange" />
     <template v-if="mode === 'addTask'">
       <AddTask @mode-click="modeChange" @after-add-task="afterAddTask" />
     </template>
     <template v-else-if="mode === 'list'">
-      <List :initial-list="list" @mode-click="modeChange" @delete-task="afterDeleteTask" @play-task="afterPlayTask" @done-edit="afterDoneEdit" :playingTask="playingTask"/>
+      <List
+        :initial-list="list"
+        @mode-click="modeChange"
+        @delete-task="afterDeleteTask"
+        @play-task="afterPlayTask"
+        @done-edit="afterDoneEdit"
+        :playingTask="playingTask"
+      />
     </template>
     <div v-else></div>
   </div>
@@ -32,50 +43,33 @@ export default {
   data() {
     return {
       mode: "list",
-      list: [
-        {
-          id: 1,
-          taskName: "First task",
-          description: "123",
-          completed: true,
-        },
-        {
-          id: 2,
-          taskName: "Second task",
-          description: "333",
-          completed: false,
-        },
-        {
-          id: 3,
-          taskName: "Third task",
-          description: "44",
-          completed: false,
-        },
-      ],
-      playingTask:""
+      list: [],
+      playingTask: "",
     };
   },
   created() {
-    // this.fetchedPlayingTask()
+   this.list = JSON.parse(localStorage.getItem("pomodoro")) || []
   },
   watch: {
-    list:{
-      handler(){
-        if(this.playingTask){
-          this.playingTask = this.list.filter(todo=> todo.id === this.playingTask.id)[0]
-          }
-      },
-      deep: true
-    },
-    playingTask:{
-      handler(newValue){
-        if(newValue.completed){
-          this.playingTask = ""
+    list: {
+      handler() {
+        this.saveStorage()
+        if (this.playingTask) {
+          this.playingTask = this.list.filter(
+            (todo) => todo.id === this.playingTask.id
+          )[0];
         }
-        
       },
-      deep: true
-    }
+      deep: true,
+    },
+    playingTask: {
+      handler(newValue) {
+        if (newValue.completed) {
+          this.playingTask = "";
+        }
+      },
+      deep: true,
+    },
   },
   methods: {
     modeChange(mode) {
@@ -86,33 +80,30 @@ export default {
       this.list.push(payload);
     },
     afterDeleteTask(id) {
-      this.list = this.list.filter(task=> task.id !== id )
+      this.list = this.list.filter((task) => task.id !== id);
     },
-    afterPlayTask(id){
-      console.log('id',id)
-      this.playingTask = this.list.filter(task => task.id === id )[0]
+    afterPlayTask(id) {
+      console.log("id", id);
+      this.playingTask = this.list.filter((task) => task.id === id)[0];
     },
-    afterDoneEdit(payload){
-      this.list = payload
+    afterDoneEdit(payload) {
+      this.list = payload;
     },
-    afterTaskFinish(){
-      this.list.map(todo=> {
-        if(this.playingTask.id === todo.id) {
-          console.log(this.playingTask.id)
-          console.log(todo)
-          return todo.completed = true
-
+    afterTaskFinish() {
+      this.list.map((todo) => {
+        if (this.playingTask.id === todo.id) {
+          console.log(this.playingTask.id);
+          console.log(todo);
+          return (todo.completed = true);
         }
-        return todo
-      })
-      console.log(this.list)
-      this.playingTask = ""
-    }
-    // fetchedPlayingTask(){
-    //   if(this.list){
-    //     this.playingTask = this.list[0]
-    //   } else {this.playingTask = {}}
-    // }
+        return todo;
+      });
+      console.log(this.list);
+      this.playingTask = "";
+    },
+    saveStorage() {
+      localStorage.setItem("pomodoro", JSON.stringify(this.list));
+    },
   },
 };
 </script>

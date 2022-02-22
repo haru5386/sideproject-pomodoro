@@ -34,25 +34,6 @@
         </svg>
       </button>
     </div>
-    <div class="li analytics-btn">
-      <button>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="29"
-          height="28"
-          viewBox="0 0 29 28"
-          fill="none"
-        >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M26 0.5H3.5C1.85 0.5 0.5 1.85 0.5 3.5V8H29V3.5C29 1.85 27.65 0.5 26 0.5ZM26 27.5H21.5V11H29V24.5C29 26.15 27.65 27.5 26 27.5ZM18.5 11.03H11V27.5H18.5V11.03ZM3.5 27.5C1.85 27.5 0.5 26.15 0.5 24.5V11H8V27.5H3.5Z"
-            fill="black"
-            fill-opacity="0.5"
-          />
-        </svg>
-      </button>
-    </div>
   </div>
 </template>
 

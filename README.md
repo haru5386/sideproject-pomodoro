@@ -16,13 +16,13 @@
  1. 打開終端機，Clone 此專案至本機電腦
  
 ```
-git clone https://github.com/haru5386/todo-sequelize
+git clone https://github.com/haru5386/sideproject-pomodoro
 ```
 
 2. 進入存放此專案的資料夾
 
 ```
-cd todo-sequelize
+cd sideproject-pomodoro
 ```
 
 3. 安裝 npm 套件，
